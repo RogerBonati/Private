@@ -1,0 +1,32 @@
+return {
+  {
+  "stevearc/conform.nvim",
+  lazy = true,
+  cmd = "ConformInfo",
+
+
+    local on_attach = function(client, bufnr)
+  -- Your on_attach function here
+  local opts = { noremap=true, silent=true }
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+end
+
+  config = function()
+    local conform = require("conform")
+    conform.setup({
+      format = {
+        timeout_ms =   3000,
+        async = false,
+        quiet = false,
+      },
+      formatters_by_ft = {
+        lua = { "stylua" },
+      },
+      formatters = {
+        injected = { options = { ignore_errors = true } },
+      },
+    })
+  end,
+},
+}
+
