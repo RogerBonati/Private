@@ -37,8 +37,8 @@ import colors
 
 mod1 = "mod4"              # Sets mod key to SUPER/WINDOWS
 mod = "mod1"
-#myTerm = "alacritty"      # My terminal of choice
-myTerm = "xterm"      # My terminal of choice
+myTerm = "alacritty"      # My terminal of choice
+#myTerm = "xterm"      # My terminal of choice
 
 # Allows you to input a name when adding treetab section.
 
@@ -105,7 +105,8 @@ keys = [
         lazy.layout.toggle_split()
     ),
     # Key([mod], "Return", qtile.spawn("xterm")),
-    Key([mod], "Return", qtile.spawn(myTerm)),
+    # Key([mod], "Return", qtile.spawn("alacritty")),
+    Key([mod], "Return", lazy.spawn("alacritty")),
 
     # launch screensaver
     # Key([mod], "l", qtile.spawn("mate-screensaver-command -l")),
