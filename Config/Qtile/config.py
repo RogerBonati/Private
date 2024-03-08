@@ -37,14 +37,15 @@ import colors
 
 mod1 = "mod4"              # Sets mod key to SUPER/WINDOWS
 mod = "mod1"
-myTerm = "alacritty"      # My terminal of choice
+#myTerm = "alacritty"      # My terminal of choice
+myTerm = "xterm"      # My terminal of choice
 
 # Allows you to input a name when adding treetab section.
 
-#@lazy.layout.function
-#def add_treetab_section(layout):
-#    prompt = qtile.widgets_map["prompt"]
-#    prompt.start_input("Section name: ", layout.cmd_add_section)
+@lazy.layout.function
+def add_treetab_section(layout):
+    prompt = qtile.widgets_map["prompt"]
+    prompt.start_input("Section name: ", layout.cmd_add_section)
 
 # A function for hide/show all the windows in a group
 @lazy.function
@@ -128,8 +129,8 @@ group_labels = ["WWW", "DEV", "TERM", "DOC", "VID", "GFX",]
 #group_labels = ["", "", "", "", "", "", "", "", "",]
 
 #group_layouts = ["monadtall", "monadtall", "tile", "tile", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall"]
-#group_layouts = ["max", "max", "tile", "tile", "stack", "monadtall"]
-group_layouts = ["max", "max", "max", "max", "max", "max"]
+group_layouts = ["max", "max", "tile", "tile", "stack", "monadtall"]
+#group_layouts = ["max", "max", "max", "max", "max", "max"]
 
 for i in range(len(group_names)):
     groups.append(
@@ -215,7 +216,7 @@ layouts = [
 widget_defaults = dict(
     font="Ubuntu Bold",
     fontsize = 12,
-    padding = 0,
+    padding = 8,
     background=colors[0]
 )
 
@@ -234,7 +235,46 @@ widget_list_bottom = [
         mouse_callbacks={"Button1": lambda: qtile.spawn("blueman-manager")},
     ),
     widget.Spacer(length = 8),
-    widget.Volume(),
+    widget.Volume(
+        
+
+        foreground = colors[7],
+        fmt = '🕫  Vol: {}',
+        decorations=[
+            BorderDecoration(
+                colour = colors[7],
+                border_width = [0, 0, 2, 0],
+            )
+        ],
+    ), 
+    #widget.Spacer(length = 8),
+    #widget.Volume(
+        #mute_command=[
+        #    'amixer',
+        #    '-q',
+        #    'set',
+        #    'Headphone',
+        #    'toggle'
+        #],
+        #mute_command = 'amixer -q -D pulse set Master toggle'.split(),
+        #volume_up_command = 'amixer -q -D pulse set Master 2%+'.split(),
+        #volume_down_command= 'amixer -q -D pulse set Master 2%-'.split(),
+        #get_volume_command= 'amixer -D pulse get Master'.split(),
+    #),
+        
+#    widget.Volume(
+        
+
+#        foreground = colors[7],
+#        fmt = '🕫  Vol: {}',
+#        decorations=[
+#            BorderDecoration(
+#                colour = colors[7],
+#                border_width = [0, 0, 2, 0],
+#            )
+#        ],
+#    ),
+    widget.Spacer(length = 8),
     widget.Clock(
         foreground = colors[8],
         format = "⏱  %a, %d %b %Y - %H:%M:%S",
@@ -374,7 +414,8 @@ widget_list_top = [
     widget.Spacer(length = 8),
     widget.Memory(
         foreground = colors[8],
-        mouse_callbacks = {'Button1': lambda: qtile.spawn(myTerm + ' -e htop')},
+        #mouse_callbacks = {'Button1': lambda: qtile.spawn(myTerm + ' -e htop')},
+        #mouse_callbacks = {'Button1': lambda: lazy.spawn(myTerm + ' -e htop')},
         format = '{MemUsed: .0f}{mm}',
         #fmt = '🖥  Mem: {} used',
         fmt = 'memory: {} used',
@@ -389,7 +430,8 @@ widget_list_top = [
     widget.DF(
         update_interval = 60,
         foreground = colors[5],
-        mouse_callbacks = {'Button1': lambda: qtile.spawn(myTerm + ' -e df')},
+        #mouse_callbacks = {'Button1': lambda: qtile.spawn(myTerm + ' -e df')},
+        #mouse_callbacks = {'Button1': lambda: lazy.spawn(myTerm + ' -e df')},
         partition = '/',
         #format = '[{p}] {uf}{m} ({r:.0f}%)',
         format = '{uf}{m} free',
@@ -403,8 +445,7 @@ widget_list_top = [
             )
         ],
     ),
-    widget.Spacer(length = 8),
-]
+ ]
 
 def init_widgets_screen1():
     return widget_list_top + widget_end_with_systray
@@ -469,35 +510,37 @@ dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-floating_layout = layout.Floating(
-    border_focus=colors[8],
-    border_width=2,
-    float_rules=[
-        # Run the utility of `xprop` to see the wm class and name of an X client.
-        *layout.Floating.default_float_rules,
-        Match(wm_class="confirmreset"),   # gitk
-        Match(wm_class="dialog"),         # dialog boxes
-        Match(wm_class="download"),       # downloads
-        Match(wm_class="error"),          # error msgs
-        Match(wm_class="file_progress"),  # file progress boxes
-        Match(wm_class='kdenlive'),       # kdenlive
-        Match(wm_class="makebranch"),     # gitk
-        Match(wm_class="maketag"),        # gitk
-        Match(wm_class="notification"),   # notifications
-        Match(wm_class='pinentry-gtk-2'), # GPG key password entry
-        Match(wm_class="ssh-askpass"),    # ssh-askpass
-        Match(wm_class="toolbar"),        # toolbars
-        Match(wm_class="Yad"),            # yad boxes
-        Match(title="branchdialog"),      # gitk
-        Match(title='Confirmation'),      # tastyworks exit box
-        Match(title='Qalculate!'),        # qalculate-gtk
-        Match(title="pinentry"),          # GPG key password entry
-        Match(title="tastycharts"),       # tastytrade pop-out charts
-        Match(title="tastytrade"),        # tastytrade pop-out side gutter
-        Match(title="tastytrade - Portfolio Report"), # tastytrade pop-out allocation
-        Match(wm_class="tasty.javafx.launcher.LauncherFxApp"), # tastytrade settings
-    ]
-)
+
+#floating_layout = layout.Floating(
+#    border_focus=colors[8],
+#    border_width=2,
+#    float_rules=[
+#        # Run the utility of `xprop` to see the wm class and name of an X client.
+#        *layout.Floating.default_float_rules,
+#        Match(wm_class="confirmreset"),   # gitk
+#        Match(wm_class="dialog"),         # dialog boxes
+#        Match(wm_class="download"),       # downloads
+#        Match(wm_class="error"),          # error msgs
+#        Match(wm_class="file_progress"),  # file progress boxes
+#        Match(wm_class='kdenlive'),       # kdenlive
+#        Match(wm_class="makebranch"),     # gitk
+#        Match(wm_class="maketag"),        # gitk
+#        Match(wm_class="notification"),   # notifications
+#        Match(wm_class='pinentry-gtk-2'), # GPG key password entry
+#        Match(wm_class="ssh-askpass"),    # ssh-askpass
+#        Match(wm_class="toolbar"),        # toolbars
+#        Match(wm_class="Yad"),            # yad boxes
+#        Match(title="branchdialog"),      # gitk
+#        Match(title='Confirmation'),      # tastyworks exit box
+#        Match(title='Qalculate!'),        # qalculate-gtk
+#        Match(title="pinentry"),          # GPG key password entry
+#        Match(title="tastycharts"),       # tastytrade pop-out charts
+#        Match(title="tastytrade"),        # tastytrade pop-out side gutter
+#        Match(title="tastytrade - Portfolio Report"), # tastytrade pop-out allocation
+#        Match(wm_class="tasty.javafx.launcher.LauncherFxApp"), # tastytrade settings
+#    ]
+#)
+
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
