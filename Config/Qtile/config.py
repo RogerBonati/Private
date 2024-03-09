@@ -38,6 +38,7 @@ import colors
 mod1 = "mod4"              # Sets mod key to SUPER/WINDOWS
 mod = "mod1"
 myTerm = "alacritty"      # My terminal of choice
+bwidth = 2
 #myTerm = "xterm"      # My terminal of choice
 
 # Allows you to input a name when adding treetab section.
@@ -66,11 +67,11 @@ def maximize_by_switching_layout(qtile):
 keys = [
     # Switch between windows in current stack pane
     Key(
-        [mod], "k",
+        [mod], "d",
         lazy.layout.down()
     ),
     Key(
-        [mod], "j",
+        [mod], "u",
         lazy.layout.up()
     ),
 
@@ -104,21 +105,39 @@ keys = [
         [mod, "shift"], "Return",
         lazy.layout.toggle_split()
     ),
-    # Key([mod], "Return", qtile.spawn("xterm")),
-    # Key([mod], "Return", qtile.spawn("alacritty")),
     Key([mod], "Return", lazy.spawn("alacritty")),
+
+    # launch brave browser
+    Key([mod], "b", lazy.spawn("brave-browser")),
+    
+    # launch chromium
+    Key([mod], "c", lazy.spawn("chromium")),
+
+    # launch forefox
+    Key([mod], "f", lazy.spawn("firefox")),
+    
+    # launch google-chrome
+    Key([mod], "g", lazy.spawn("google-chrome")),
+    
+    # launch konqueror
+    Key([mod], "k", lazy.spawn("konqueror")),
 
     # launch screensaver
     Key([mod], "l", lazy.spawn("mate-screensaver-command -l")),
+    
+    Key([mod], "r", lazy.spawncmd()),
+  
+    Key([mod], "w", lazy.window.kill()),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
-    Key([mod], "w", lazy.window.kill()),
 
+    # launch menu window
+    Key([mod, "control"], "m", lazy.spawn("rofi -show drun")),
+    
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
-    #Key([mod], "r", qtile.spawncmd()),
-    Key([mod], "r", lazy.spawncmd()),
+
 ]
 
 groups = []
@@ -126,7 +145,7 @@ groups = []
 group_names = ["1", "2", "3", "4", "5", "6",]
 
 #group_labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9",]
-group_labels = ["WWW", "DEV", "TERM", "DOC", "VID", "GFX",]
+group_labels = ["WWW", "TERM", "CHROM", "KONQ", "VID", "GGCH",]
 #group_labels = ["", "", "", "", "", "", "", "", "",]
 
 #group_layouts = ["monadtall", "monadtall", "tile", "tile", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall"]
@@ -180,12 +199,12 @@ layouts = [
     #layout.MonadWide(**layout_theme),
     layout.Tile(
         shift_windows=True,
-        order_width = 0,
+        border_width = 0,
         margin = 0,
         ratio = 0.335,
     ),
     layout.Max(
-        order_width = 0,
+        border_width = 0,
         margin = 0,
     ),
     layout.Stack(**layout_theme, num_stacks=2),
@@ -248,33 +267,6 @@ widget_list_bottom = [
             )
         ],
     ), 
-    #widget.Spacer(length = 8),
-    #widget.Volume(
-        #mute_command=[
-        #    'amixer',
-        #    '-q',
-        #    'set',
-        #    'Headphone',
-        #    'toggle'
-        #],
-        #mute_command = 'amixer -q -D pulse set Master toggle'.split(),
-        #volume_up_command = 'amixer -q -D pulse set Master 2%+'.split(),
-        #volume_down_command= 'amixer -q -D pulse set Master 2%-'.split(),
-        #get_volume_command= 'amixer -D pulse get Master'.split(),
-    #),
-        
-#    widget.Volume(
-        
-
-#        foreground = colors[7],
-#        fmt = '🕫  Vol: {}',
-#        decorations=[
-#            BorderDecoration(
-#                colour = colors[7],
-#                border_width = [0, 0, 2, 0],
-#            )
-#        ],
-#    ),
     widget.Spacer(length = 8),
     widget.Clock(
         foreground = colors[8],
