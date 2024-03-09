@@ -109,7 +109,7 @@ keys = [
     Key([mod], "Return", lazy.spawn("alacritty")),
 
     # launch screensaver
-    # Key([mod], "l", qtile.spawn("mate-screensaver-command -l")),
+    Key([mod], "l", lazy.spawn("mate-screensaver-command -l")),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
