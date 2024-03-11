@@ -32,6 +32,14 @@ from libqtile.lazy import lazy
 # Make sure 'qtile-extras' is installed or this config will not work.
 from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
+from qtile_extras.widget.decorations import PowerLineDecoration
+
+powerline = {
+    "decorations": [
+        PowerLineDecoration()
+    ]
+}
+
 #from qtile_extras.widget import StatusNotifier
 import colors
 
@@ -39,6 +47,14 @@ mod1 = "mod4"              # Sets mod key to SUPER/WINDOWS
 mod = "mod1"
 myTerm = "alacritty"      # My terminal of choice
 bwidth = 2
+
+dgrey="#333333"
+dgrey2="#A9A9A9"
+lgrey="#CCCCCC"
+lgrey2="#D3D3D3"
+black="#000000"
+white="#FFFFFF"
+
 #myTerm = "xterm"      # My terminal of choice
 
 # Allows you to input a name when adding treetab section.
@@ -209,8 +225,8 @@ colors = colors.Dracula
 layout_theme = {
     "border_width": 4,
     "margin": 8,
-    "border_focus": "#333333", # Dark grey for focused windows
-    "border_normal": "#CCCCCC" # Light grey for unfocused windows
+    "border_focus": lgrey, # Dark grey for focused windows
+    "border_normal": dgrey # Light grey for unfocused windows
 }
 
 layouts = [
@@ -272,124 +288,85 @@ widget_list_bottom = [
     ),
     widget.Spacer(length = 8),
     widget.WindowTabs(),
-    # widget.Spacer(length = 8),
-    
-    widget.TextBox(
-        text="◀",
-        #font = "Ubuntu Mono",
-        #background = "#ffffff", # white
-        background = "#000000", # black
-        foreground = "#333333",
-        padding = 0,
-        fontsize = 14
+    widget.Spacer(length = 8,
+        foreground = black,
+        background = lgrey,
+        **powerline
     ),
     widget.Bluetooth(
-        #**decor_right,
-        #padding=10,
         mouse_callbacks={"Button1": lambda: qtile.spawn("blueman-manager")},
-        foreground = "#ffffff",
-        background = "#333333",
-        #padding = 2,
-        fontsize = 14
+        background = dgrey,
+        **powerline
     ),
-    
-    widget.Spacer(
-        length = 8,
-        background = "#333333",
-    ),
-    widget.TextBox(
-        text="◀",
-        #font = "Ubuntu Mono",
-        foreground = "#ffffff",
-        background = "#cccccc",
-        #padding = 2,
-        fontsize = 14
-    ),
-
     widget.Volume(
-        
-        background = "#cccccc",
-        #padding = 2,
-        fontsize = 14,
-
-        foreground = "#ffffff",
-        #fmt = '🕫  Vol: {}',
+        background = lgrey,
+        foreground = black,
         fmt = ' Vol: {}',
-        #decorations=[
-        #    BorderDecoration(
-        #        colour = colors[7],
-        #        border_width = [0, 0, bwidth, 0],
-        #    )
-        #],
+        **powerline
     ), 
-    widget.Spacer(
-        length = 8,
-        background = "#333333",
-    ),
-    widget.TextBox(
-        text="◀",
-        #font = "Ubuntu Mono",
-        foreground = "#ffffff",
-        background = "#333333",
-        #padding = 2,
-        fontsize = 14
-    ),
     widget.Clock(
-        foreground = "#ffffff",
         format = "⏱  %a, %d %b %Y - %H:%M:%S",
-        #decorations=[
-        #    BorderDecoration(
-        #        colour = colors[3],
-        #        border_width = [0, 0, bwidth, 0],
-        #    )
-        #],
-        background = "#333333",
+        background = dgrey,
+        **powerline
+    ),
+    widget.QuickExit(
+        background = lgrey,
+        **powerline
     ),
     widget.Spacer(
         length = 8,
-        background = "#333333",
+        background = dgrey,
     ),
-
 ]
 
 widget_end_with_systray = [
-    widget.Spacer(length = 8),
-    widget.Systray(padding = 3),
-    widget.Spacer(length = 8),
-    widget.Battery(),
-    widget.Spacer(length = 8),
-    widget.Clock(
-        foreground = colors[8],
-        format = "⏱  %a, %d %b %Y - %H:%M:%S",
-        decorations=[
-            BorderDecoration(
-                colour = colors[8],
-                border_width = [0, 0, bwidth, 0],
-            )
-        ],
+    widget.Spacer(length = 8,
+        background = dgrey,
+        **powerline
     ),
-    widget.Spacer(length = 8),
-    widget.QuickExit(),
-    widget.Spacer(length = 8),
+    widget.Systray(
+        background = lgrey,
+        foreground = black,
+        **powerline
+    ),
+    # widget.Spacer(length = 8),
+    widget.Battery(
+        background = dgrey,
+        **powerline
+    ),
+    #widget.Spacer(length = 8),
+    widget.Clock(
+        #foreground = colors[8],
+        format = "⏱  %a, %d %b %Y - %H:%M:%S",
+        foreground = black,
+        background = lgrey,
+        **powerline
+    ),
+    widget.QuickExit(
+        background = dgrey,
+        **powerline
+    ),
 ]
 
 widget_end_without_systray = [
-    widget.Spacer(length = 8),
-    widget.Battery(),
-    widget.Spacer(length = 8),
-    widget.Clock(
-        foreground = colors[8],
-        format = "⏱  %a, %d %b %Y - %H:%M:%S",
-        decorations=[
-            BorderDecoration(
-                colour = colors[8],
-                border_width = [0, 0, bwidth, 0],
-            )
-        ],
+    #widget.Spacer(length = 8),
+    widget.Battery(
+        background = dgrey,
+        **powerline
     ),
-    widget.Spacer(length = 8),
-    widget.QuickExit(),
-    widget.Spacer(length = 8),
+    widget.Clock(
+        #foreground = colors[8],
+        format = "⏱  %a, %d %b %Y - %H:%M:%S",
+        background = lgrey,
+        foreground = black,
+        **powerline
+
+    ),
+    #widget.Spacer(length = 8),
+    widget.QuickExit(
+        background = dgrey,
+        **powerline
+    ),
 ]
 
 widget_list_top = [
@@ -449,65 +426,43 @@ widget_list_top = [
         foreground = colors[6],
         max_chars = 40
     ),
-    widget.Spacer(length = 8),
+    widget.Spacer(length = 8,
+        foreground = black,
+        background = lgrey,
+        **powerline
+    ),
     widget.GenPollText(
         update_interval = 300,
         func = lambda: subprocess.check_output("printf $(uname -r)", shell=True, text=True),
-        foreground = colors[3],
-        #fmt = '❤  {}',
         fmt = 'kernel: {}',
-        decorations=[
-            BorderDecoration(
-                colour = colors[3],
-                border_width = [0, 0, bwidth, 0],
-            )
-        ],
+        background = dgrey,
+        **powerline
     ),
-    widget.Spacer(length = 8),
     widget.CPU(
         #format = '▓  Cpu: {load_percent}%',
         format = 'cpu: {load_percent}%',
-        foreground = colors[4],
-        decorations=[
-            BorderDecoration(
-                colour = colors[4],
-                border_width = [0, 0, bwidth, 0],
-            )
-        ],
+        background = lgrey,
+        foreground = black,
+        **powerline
     ),
-    widget.Spacer(length = 8),
     widget.Memory(
-        foreground = colors[8],
-        #mouse_callbacks = {'Button1': lambda: qtile.spawn(myTerm + ' -e htop')},
-        #mouse_callbacks = {'Button1': lambda: lazy.spawn(myTerm + ' -e htop')},
         format = '{MemUsed: .0f}{mm}',
         #fmt = '🖥  Mem: {} used',
         fmt = 'memory: {} used',
-        decorations=[
-            BorderDecoration(
-                colour = colors[8],
-                border_width = [0, 0, bwidth, 0],
-            )
-        ],
+        background = dgrey,
+        **powerline
     ),
-    widget.Spacer(length = 8),
     widget.DF(
         update_interval = 60,
-        foreground = colors[5],
-        #mouse_callbacks = {'Button1': lambda: qtile.spawn(myTerm + ' -e df')},
-        #mouse_callbacks = {'Button1': lambda: lazy.spawn(myTerm + ' -e df')},
         partition = '/',
         #format = '[{p}] {uf}{m} ({r:.0f}%)',
         format = '{uf}{m} free',
         #fmt = '🖴  Disk: {}',
         fmt = 'disk: {}',
         visible_on_warn = False,
-        decorations=[
-            BorderDecoration(
-                colour = colors[5],
-                border_width = [0, 0, bwidth, 0],
-            )
-        ],
+        background = lgrey,
+        foreground = black,
+        **powerline
     ),
  ]
 
