@@ -77,13 +77,22 @@ keys = [
 
     # Move windows up or down in current stack
     Key(
-        [mod, "control"], "k",
+        [mod1, "control"], "k",
         lazy.layout.shuffle_down()
     ),
     Key(
-        [mod, "control"], "j",
+        [mod1, "control"], "j",
         lazy.layout.shuffle_up()
     ),
+
+    Key([mod, "control"], "h", lazy.layout.left(), desc="Move focus to left"),
+    Key([mod, "control"], "l", lazy.layout.right(), desc="Move focus to right"),
+    Key([mod, "control"], "j", lazy.layout.down(), desc="Move focus down"),
+    Key([mod, "control"], "k", lazy.layout.up(), desc="Move focus up"),
+    Key([mod, "control"], "space", lazy.layout.next(), desc="Move window focus to other window"),
+
+
+
 
     # Switch window focus to other pane(s) of stack
     Key(
@@ -125,9 +134,21 @@ keys = [
     # launch screensaver
     Key([mod], "l", lazy.spawn("mate-screensaver-command -l")),
     
+    #Key([mod], "m", lazy.layout.maximize(), desc='Toggle between min and max sizes'),
+    Key([mod], "m", lazy.window.toggle_fullscreen()),
+
+    Key([mod, "shift"], "m", minimize_all(), desc="Toggle hide/show all windows on current group"),
+
     Key([mod], "r", lazy.spawncmd()),
   
     Key([mod], "w", lazy.window.kill()),
+    
+    # launch keepassx
+    Key([mod], "x", lazy.spawn("keepassx")),
+
+    # Switch focus of monitors
+    Key([mod], "period", lazy.next_screen(), desc='Move focus to next monitor'),
+    Key([mod], "comma", lazy.prev_screen(), desc='Move focus to prev monitor'),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
@@ -137,7 +158,9 @@ keys = [
     
     Key([mod, "control"], "r", lazy.restart()),
     Key([mod, "control"], "q", lazy.shutdown()),
-
+    
+    # select a new wallpaper
+    Key([mod, "control"], "w", lazy.spawn("find ~/Eigenedat/Bilder -type f | shuf -n 1 | xargs xwallpaper --stretch")),
 ]
 
 groups = []
@@ -183,10 +206,11 @@ for i in groups:
 #colors = colors.DoomOne
 colors = colors.Dracula
 
-layout_theme = {"border_width": 2,
+layout_theme = {
+    "border_width": 4,
     "margin": 8,
-    "border_focus": colors[8],
-    "border_normal": colors[0]
+    "border_focus": "#333333", # Dark grey for focused windows
+    "border_normal": "#CCCCCC" # Light grey for unfocused windows
 }
 
 layouts = [
@@ -199,12 +223,12 @@ layouts = [
     #layout.MonadWide(**layout_theme),
     layout.Tile(
         shift_windows=True,
-        border_width = 0,
+        border_width = bwidth,
         margin = 0,
         ratio = 0.335,
     ),
     layout.Max(
-        border_width = 0,
+        border_width = bwidth,
         margin = 0,
     ),
     layout.Stack(**layout_theme, num_stacks=2),
@@ -212,7 +236,7 @@ layouts = [
     layout.TreeTab(
         font = "Ubuntu Bold",
         fontsize = 11,
-        border_width = 0,
+        border_width = bwidth,
         bg_color = colors[0],
         active_bg = colors[8],
         active_fg = colors[2],
@@ -243,42 +267,89 @@ widget_defaults = dict(
 # extension_defaults = widget_defaults.copy()
 widget_list_bottom = [
     widget.Image(
-        filename = "~/.config/qtile/icons/logo.png",
+        filename = "~/.config/qtile/icons/qtile.png",
         mouse_callbacks = {'Button1': lambda: qtile.spawn("rofi -show drun")},
     ),
     widget.Spacer(length = 8),
     widget.WindowTabs(),
     # widget.Spacer(length = 8),
+    
+    widget.TextBox(
+        text="◀",
+        #font = "Ubuntu Mono",
+        #background = "#ffffff", # white
+        background = "#000000", # black
+        foreground = "#333333",
+        padding = 0,
+        fontsize = 14
+    ),
     widget.Bluetooth(
         #**decor_right,
         #padding=10,
         mouse_callbacks={"Button1": lambda: qtile.spawn("blueman-manager")},
+        foreground = "#ffffff",
+        background = "#333333",
+        #padding = 2,
+        fontsize = 14
     ),
-    widget.Spacer(length = 8),
+    
+    widget.Spacer(
+        length = 8,
+        background = "#333333",
+    ),
+    widget.TextBox(
+        text="◀",
+        #font = "Ubuntu Mono",
+        foreground = "#ffffff",
+        background = "#cccccc",
+        #padding = 2,
+        fontsize = 14
+    ),
+
     widget.Volume(
         
+        background = "#cccccc",
+        #padding = 2,
+        fontsize = 14,
 
-        foreground = colors[7],
-        fmt = '🕫  Vol: {}',
-        decorations=[
-            BorderDecoration(
-                colour = colors[7],
-                border_width = [0, 0, 2, 0],
-            )
-        ],
+        foreground = "#ffffff",
+        #fmt = '🕫  Vol: {}',
+        fmt = ' Vol: {}',
+        #decorations=[
+        #    BorderDecoration(
+        #        colour = colors[7],
+        #        border_width = [0, 0, bwidth, 0],
+        #    )
+        #],
     ), 
-    widget.Spacer(length = 8),
-    widget.Clock(
-        foreground = colors[8],
-        format = "⏱  %a, %d %b %Y - %H:%M:%S",
-        decorations=[
-            BorderDecoration(
-                colour = colors[3],
-                border_width = [0, 0, 2, 0],
-            )
-        ],
+    widget.Spacer(
+        length = 8,
+        background = "#333333",
     ),
-    widget.Spacer(length = 8),
+    widget.TextBox(
+        text="◀",
+        #font = "Ubuntu Mono",
+        foreground = "#ffffff",
+        background = "#333333",
+        #padding = 2,
+        fontsize = 14
+    ),
+    widget.Clock(
+        foreground = "#ffffff",
+        format = "⏱  %a, %d %b %Y - %H:%M:%S",
+        #decorations=[
+        #    BorderDecoration(
+        #        colour = colors[3],
+        #        border_width = [0, 0, bwidth, 0],
+        #    )
+        #],
+        background = "#333333",
+    ),
+    widget.Spacer(
+        length = 8,
+        background = "#333333",
+    ),
+
 ]
 
 widget_end_with_systray = [
@@ -293,7 +364,7 @@ widget_end_with_systray = [
         decorations=[
             BorderDecoration(
                 colour = colors[8],
-                border_width = [0, 0, 2, 0],
+                border_width = [0, 0, bwidth, 0],
             )
         ],
     ),
@@ -312,7 +383,7 @@ widget_end_without_systray = [
         decorations=[
             BorderDecoration(
                 colour = colors[8],
-                border_width = [0, 0, 2, 0],
+                border_width = [0, 0, bwidth, 0],
             )
         ],
     ),
@@ -388,7 +459,7 @@ widget_list_top = [
         decorations=[
             BorderDecoration(
                 colour = colors[3],
-                border_width = [0, 0, 2, 0],
+                border_width = [0, 0, bwidth, 0],
             )
         ],
     ),
@@ -400,7 +471,7 @@ widget_list_top = [
         decorations=[
             BorderDecoration(
                 colour = colors[4],
-                border_width = [0, 0, 2, 0],
+                border_width = [0, 0, bwidth, 0],
             )
         ],
     ),
@@ -415,7 +486,7 @@ widget_list_top = [
         decorations=[
             BorderDecoration(
                 colour = colors[8],
-                border_width = [0, 0, 2, 0],
+                border_width = [0, 0, bwidth, 0],
             )
         ],
     ),
@@ -434,7 +505,7 @@ widget_list_top = [
         decorations=[
             BorderDecoration(
                 colour = colors[5],
-                border_width = [0, 0, 2, 0],
+                border_width = [0, 0, bwidth, 0],
             )
         ],
     ),
