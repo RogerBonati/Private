@@ -157,6 +157,9 @@ keys = [
 
     Key([mod], "r", lazy.spawncmd()),
   
+    # launch vlc
+    Key([mod], "v", lazy.spawn("vlc")),
+
     Key([mod], "w", lazy.window.kill()),
     
     # launch keepassx
@@ -224,7 +227,7 @@ colors = colors.Dracula
 
 layout_theme = {
     "border_width": 4,
-    "margin": 8,
+    "margin": 0,
     "border_focus": lgrey, # Dark grey for focused windows
     "border_normal": dgrey # Light grey for unfocused windows
 }
