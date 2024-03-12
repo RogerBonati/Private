@@ -299,6 +299,7 @@ widget_list_bottom = [
         **powerline
     ),
     widget.Volume(
+        mouse_callbacks={"Button1": lambda: qtile.spawn("pactl set-sink-mute 0 toggle")},
         background = lgrey,
         foreground = black,
         fmt = ' Vol: {}',
