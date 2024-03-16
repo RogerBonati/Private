@@ -184,14 +184,14 @@ keys = [
 
 groups = []
 #group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9",]
-group_names = ["1", "2", "3", "4", "5", "6",]
+group_names = ["1", "2", "3", "4", "5", "6", "7"]
 
 #group_labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9",]
-group_labels = ["WWW", "TERM", "CHROM", "KONQ", "VID", "GGCH",]
+group_labels = ["WWW", "TERM", "CHROM", "KONQ", "VID", "SYS", "REST"]
 #group_labels = ["", "", "", "", "", "", "", "", "",]
 
 #group_layouts = ["monadtall", "monadtall", "tile", "tile", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall"]
-group_layouts = ["max", "max", "tile", "tile", "stack", "monadtall"]
+group_layouts = ["max", "max", "tile", "tile", "max", "stack", "monadtall"]
 #group_layouts = ["max", "max", "max", "max", "max", "max"]
 
 for i in range(len(group_names)):
@@ -291,11 +291,11 @@ widget_list_bottom = [
     ),
     widget.Spacer(length = 8),
     widget.WindowTabs(),
-    widget.Spacer(length = 8,
-        foreground = black,
-        background = lgrey,
-        **powerline
-    ),
+#    widget.Spacer(length = 8,
+#        foreground = black,
+#        background = lgrey,
+#        **powerline
+#    ),
     widget.Bluetooth(
         mouse_callbacks={"Button1": lambda: qtile.spawn("blueman-manager")},
         background = dgrey,
@@ -430,11 +430,11 @@ widget_list_top = [
         foreground = colors[6],
         max_chars = 40
     ),
-    widget.Spacer(length = 8,
-        foreground = black,
-        background = lgrey,
-        **powerline
-    ),
+#    widget.Spacer(length = 8,
+#        foreground = black,
+#        background = lgrey,
+#        **powerline
+#    ),
     widget.GenPollText(
         update_interval = 300,
         func = lambda: subprocess.check_output("printf $(uname -r)", shell=True, text=True),
