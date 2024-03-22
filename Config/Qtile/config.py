@@ -179,7 +179,9 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown()),
     
     # select a new wallpaper
-    Key([mod, "control"], "w", lazy.spawn("find ~/Eigenedat/Bilder -type f | shuf -n 1 | xargs xwallpaper --stretch")),
+    # Key([mod, "control"], "w", lazy.spawn_multiple("find ~/Eigenedat/Bilder -type f | shuf -n 1 | xargs xwallpaper --stretch"))
+    Key([mod, "control"], "w", lazy.spawn("sh -c 'find ~/Eigenedat/Bilder -type f | shuf -n 1 | xargs xwallpaper --stretch'"))
+
 ]
 
 groups = []
