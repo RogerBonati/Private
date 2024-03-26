@@ -181,7 +181,6 @@ keys = [
     # select a new wallpaper
     # Key([mod, "control"], "w", lazy.spawn_multiple("find ~/Eigenedat/Bilder -type f | shuf -n 1 | xargs xwallpaper --stretch"))
     Key([mod, "control"], "w", lazy.spawn("sh -c 'find ~/Eigenedat/Bilder -type f | shuf -n 1 | xargs xwallpaper --stretch'"))
-
 ]
 
 groups = []
@@ -230,7 +229,7 @@ colors = colors.Dracula
 layout_theme = {
     "border_width": 4,
     "margin": 0,
-    "border_focus": lgrey, # Dark grey for focused windows
+    "border_focus": lgrey2, # Dark grey for focused windows
     "border_normal": dgrey # Light grey for unfocused windows
 }
 
@@ -295,7 +294,7 @@ widget_list_bottom = [
     widget.WindowTabs(),
 #    widget.Spacer(length = 8,
 #        foreground = black,
-#        background = lgrey,
+#        background = lgrey2,
 #        **powerline
 #    ),
     widget.Bluetooth(
@@ -305,7 +304,7 @@ widget_list_bottom = [
     ),
     widget.Volume(
         mouse_callbacks={"Button1": lambda: qtile.spawn("pactl set-sink-mute 0 toggle")},
-        background = lgrey,
+        background = lgrey2,
         foreground = black,
         fmt = ' Vol: {}',
         **powerline
@@ -316,7 +315,7 @@ widget_list_bottom = [
         **powerline
     ),
     widget.QuickExit(
-        background = lgrey,
+        background = lgrey2,
         **powerline
     ),
     widget.Spacer(
@@ -331,7 +330,7 @@ widget_end_with_systray = [
         **powerline
     ),
     widget.Systray(
-        background = lgrey,
+        background = lgrey2,
         foreground = black,
         **powerline
     ),
@@ -345,7 +344,7 @@ widget_end_with_systray = [
         #foreground = colors[8],
         format = "⏱  %a, %d %b %Y - %H:%M:%S",
         foreground = black,
-        background = lgrey,
+        background = lgrey2,
         **powerline
     ),
     widget.QuickExit(
@@ -363,7 +362,7 @@ widget_end_without_systray = [
     widget.Clock(
         #foreground = colors[8],
         format = "⏱  %a, %d %b %Y - %H:%M:%S",
-        background = lgrey,
+        background = lgrey2,
         foreground = black,
         **powerline
 
@@ -434,7 +433,7 @@ widget_list_top = [
     ),
 #    widget.Spacer(length = 8,
 #        foreground = black,
-#        background = lgrey,
+#        background = lgrey2,
 #        **powerline
 #    ),
     widget.GenPollText(
@@ -447,7 +446,7 @@ widget_list_top = [
     widget.CPU(
         #format = '▓  Cpu: {load_percent}%',
         format = 'cpu: {load_percent}%',
-        background = lgrey,
+        background = lgrey2,
         foreground = black,
         **powerline
     ),
@@ -466,7 +465,7 @@ widget_list_top = [
         #fmt = '🖴  Disk: {}',
         fmt = 'disk: {}',
         visible_on_warn = False,
-        background = lgrey,
+        background = lgrey2,
         foreground = black,
         **powerline
     ),
