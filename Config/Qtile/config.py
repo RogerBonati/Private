@@ -305,8 +305,7 @@ widget_list_bottom = [
     widget.Volume(
         volume_up_command="pactl set-sink-volume @DEFAULT_SINK@ +5%",
         volume_down_command="pactl set-sink-volume @DEFAULT_SINK@ -5%",
-        get_volume_command="pactl list sinks | grep -oP 'front-left:.*?\K\d+%'| tail -n 1",
-        #get_volume_command="pactl list sinks | grep 'Volume:' | awk '{print $5}'",
+        get_volume_command="bash -c 'DEFAULT_SINK=$(pactl get-default-sink); pactl list sinks | grep -A10 $DEFAULT_SINK | grep -oP \"front.*:.*?\\K\\d+%\"'",
         mouse_callbacks={"Button1": lambda: qtile.spawn("pactl set-sink-mute 0 toggle")},
         background=lgrey2,
         foreground=black,
