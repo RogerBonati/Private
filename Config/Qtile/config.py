@@ -303,6 +303,8 @@ widget_list_bottom = [
         **powerline
     ),
     widget.Volume(
+        volume_down_command="amixer set Master 5%-",
+        volume_up_command="amixer set Master 5%+",
         mouse_callbacks={"Button1": lambda: qtile.spawn("pactl set-sink-mute 0 toggle")},
         background = lgrey2,
         foreground = black,
