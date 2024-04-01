@@ -302,15 +302,29 @@ widget_list_bottom = [
         background = dgrey,
         **powerline
     ),
+#    widget.Volume(
+#        volume_up_command="pactl set-sink-volume @DEFAULT_SINK@ +5%",
+#        volume_down_command="pactl set-sink-volume @DEFAULT_SINK@ -5%",
+#        # volume_down_command="amixer set Master 5%-",
+#        # volume_up_command="amixer set Master 5%+",
+#        mouse_callbacks={"Button1": lambda: qtile.spawn("pactl set-sink-mute 0 toggle")},
+#        background = lgrey2,
+#        foreground = black,
+#        fmt = ' Vol: {}',
+#        **powerline
+#    ),
     widget.Volume(
-        volume_down_command="amixer set Master 5%-",
-        volume_up_command="amixer set Master 5%+",
+        volume_up_command="pactl set-sink-volume @DEFAULT_SINK@ +5%",
+        volume_down_command="pactl set-sink-volume @DEFAULT_SINK@ -5%",
+        get_volume_command="pactl list sinks | grep -oP 'front-left:.*?\K\d+%'| tail -n 1",
+        #get_volume_command="pactl list sinks | grep 'Volume:' | awk '{print $5}'",
         mouse_callbacks={"Button1": lambda: qtile.spawn("pactl set-sink-mute 0 toggle")},
-        background = lgrey2,
-        foreground = black,
-        fmt = ' Vol: {}',
+        background=lgrey2,
+        foreground=black,
+        fmt=' Vol: {}',
         **powerline
-    ), 
+    ),
+
     widget.Clock(
         format = "⏱  %a, %d %b %Y - %H:%M:%S",
         background = dgrey,
