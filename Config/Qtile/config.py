@@ -302,17 +302,6 @@ widget_list_bottom = [
         background = dgrey,
         **powerline
     ),
-#    widget.Volume(
-#        volume_up_command="pactl set-sink-volume @DEFAULT_SINK@ +5%",
-#        volume_down_command="pactl set-sink-volume @DEFAULT_SINK@ -5%",
-#        # volume_down_command="amixer set Master 5%-",
-#        # volume_up_command="amixer set Master 5%+",
-#        mouse_callbacks={"Button1": lambda: qtile.spawn("pactl set-sink-mute 0 toggle")},
-#        background = lgrey2,
-#        foreground = black,
-#        fmt = ' Vol: {}',
-#        **powerline
-#    ),
     widget.Volume(
         volume_up_command="pactl set-sink-volume @DEFAULT_SINK@ +5%",
         volume_down_command="pactl set-sink-volume @DEFAULT_SINK@ -5%",
@@ -324,7 +313,6 @@ widget_list_bottom = [
         fmt=' Vol: {}',
         **powerline
     ),
-
     widget.Clock(
         format = "⏱  %a, %d %b %Y - %H:%M:%S",
         background = dgrey,
