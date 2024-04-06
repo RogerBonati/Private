@@ -83,11 +83,11 @@ def maximize_by_switching_layout(qtile):
 keys = [
     # Switch between windows in current stack pane
     Key(
-        [mod], "d",
+        [mod1], "d",
         lazy.layout.down()
     ),
     Key(
-        [mod], "u",
+        [mod1], "u",
         lazy.layout.up()
     ),
 
@@ -100,6 +100,10 @@ keys = [
         [mod1, "control"], "j",
         lazy.layout.shuffle_up()
     ),
+
+    # do Volume Control
+    Key([mod, "shift"], "d", lazy.spawn("amixer sset Master 5%-"), desc="Lower Volume by 5%"),
+    Key([mod, "shift"], "u", lazy.spawn("amixer sset Master 5%+"), desc="Upper Volume by 5%"),
 
     Key([mod, "control"], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod, "control"], "l", lazy.layout.right(), desc="Move focus to right"),
