@@ -1,7 +1,7 @@
 # Private
 My private dotfiles and configs
 To install qtile with qtile extras do the following:
-
+```
  mkdir Git
  cd Git/
  apt install python3-pip
@@ -14,3 +14,4 @@ To install qtile with qtile extras do the following:
  apt install libpango1.0-dev
  apt install libgdk-pixbuf2.0-0
  apt install libgdk-pixbuf-2.0-dev
+```
