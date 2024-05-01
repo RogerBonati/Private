@@ -15,3 +15,7 @@ To install qtile with qtile extras do the following:
  apt install libgdk-pixbuf2.0-0
  apt install libgdk-pixbuf-2.0-dev
 ```
+For the ansiple language server use npm to install:
+```
+npm install -g ansible-language-server
+```
