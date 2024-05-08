@@ -9,6 +9,15 @@ alias ghidra="/opt/ghidra/ghidraRun"
 alias quemu='qemu-system-arm -kernel ~/Eigenedat/Tmp/quemu_vms/kernel-qemu-4.4.34-jessie -cpu arm1176 -m 256 -serial stdio -append "root=/dev/sda2 rootfstype=ext4 rw" -M versatilepb -hda ~/Eigenedat/Tmp/quemu_vms/2017-04-10-raspbian-jessie.img -nic user,hostfwd=tcp::5022-:22 -no-reboot'
 alias vlc="~/Eigenedat/Skripte/Shell/disable-screensaver.sh && /usr/bin/vlc &"
 alias st='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -'
+# ---- Eza (better ls) -----
+
+alias lse="eza --color=always --long --no-filesize --icons=always --no-time --no-user --no-permissions"
+
+alias cd="z"
+
+alias fman="compgen -c | fzf | xargs man"
+alias bigfiles="du -ah . | sort -hr | head -n 10"
+alias nodecleanup="find ~ -name "node_modules" -type d | xargs du -sh | sort -hr | fzf -m --header "Select which node_modules to delete" --preview 'cat $(dirname {})/package.json' | awk '{print $2}' | xargs -r rm -rf"
 
 cheat() {
   curl https://cheat.sh/$1
