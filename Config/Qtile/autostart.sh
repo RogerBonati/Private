@@ -9,6 +9,9 @@ find "$HOME"/Eigenedat/Bilder -type f | shuf -n 1 | xargs xwallpaper --stretch &
 # nitrogen --restore &
 
 setxkbmap de
+# map caps-lock to escape
+setxkbmap -option caps:escape
+
 #COLORSCHEME=DoomOne
 COLORSCHEME=Dracula
 
