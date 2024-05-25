@@ -8,9 +8,8 @@ find "$HOME"/Eigenedat/Bilder -type f | shuf -n 1 | xargs xwallpaper --stretch &
 # 3. Uncomment to set wallpaper with nitrogen
 # nitrogen --restore &
 
-setxkbmap de
 # map caps-lock to escape
-setxkbmap -option caps:escape
+setxkbmap -layout de -option caps:escape
 
 #COLORSCHEME=DoomOne
 COLORSCHEME=Dracula
