@@ -8,30 +8,49 @@ fi
 #source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
+ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 alias reload-zsh="source ~/.zshrc"
 alias edit-zsh="nvim ~/.zshrc"
 
-plugins=(zsh-autosuggestions)
-export PATH="$HOME.local.bin:$HOME/go/bin:$PATH"
+plugins=(zsh-autosuggestions zsh-syntax-highlighting zsh-completions git)
+autoload -U compinit && compinit
+
+
+# GO
+export GOBIN=~/go/bin
+export PATH="$HOME.local.bin:/usr/local/go/bin:$PATH"
 
 
 # history setup
 HISTFILE=$HOME/.zhistory
 SAVEHIST=200000
 HISTSIZE=200000
+HISTDUP=erase
+
 setopt share_history 
 setopt hist_expire_dups_first
-setopt hist_ignore_dups
+setopt hist_ignore_all_dups
 setopt hist_verify
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_save_no_dups
+setopt hist_find_no_dups
+
 
 # completion using arrow keys (based on history)
-bindkey '^[[A' history-search-backward
-bindkey '^[[B' history-search-forward
+#bindkey '^[[A' history-search-backward
+#bindkey '^[[B' history-search-forward
 
-export PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/br/.cargo/bin:/home/br/.local/bin:/home/br/go/bin:/home/br/.cargo/bin:/home/br/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/br/.dotnet/tools
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+
+export PATH=/home/br/.cargo/bin:/home/br/.local/bin:/home/br/go/bin:/home/br/.cargo/bin:/home/br/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/br/.dotnet/tools:$PATH
+# export PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/br/.cargo/bin:/home/br/.local/bin:/home/br/go/bin:/home/br/.cargo/bin:/home/br/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/br/.dotnet/tools:$PATH
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -119,3 +138,5 @@ fi
 unsetopt RC_QUOTES
 setopt SH_WORD_SPLIT
 
+#export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+#eval "$(rbenv init -)"
