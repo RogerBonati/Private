@@ -19,14 +19,15 @@ alias edit-zsh="nvim ~/.zshrc"
 plugins=(zsh-autosuggestions zsh-syntax-highlighting zsh-completions git)
 autoload -U compinit && compinit
 
+export PATH=${PATH}
 
 # GO
 export GOBIN=~/go/bin
-export PATH="$HOME.local.bin:/usr/local/go/bin:$PATH"
+#export PATH="$HOME.local.bin:/usr/local/go/bin:$PATH"
 
 
 # history setup
-HISTFILE=$HOME/.zhistory
+HISTFILE=${HOME}/.zhistory
 SAVEHIST=200000
 HISTSIZE=200000
 HISTDUP=erase
@@ -49,14 +50,15 @@ setopt hist_find_no_dups
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
-export PATH=/home/br/.cargo/bin:/home/br/.local/bin:/home/br/go/bin:/home/br/.cargo/bin:/home/br/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/br/.dotnet/tools:$PATH
-# export PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/br/.cargo/bin:/home/br/.local/bin:/home/br/go/bin:/home/br/.cargo/bin:/home/br/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/br/.dotnet/tools:$PATH
+# export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/br/.cargo/bin:/home/br/.local/bin:/home/br/go/bin:/home/br/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/br/.dotnet/tools"
+export PATH="${PATH}:${HOME}/.local/bin:${HOME}/go/bin:/usr/local/go/bin"
+
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="{$HOME}/.nvm"
+[ -s "${NVM_DIR}/nvm.sh" ] && \. "{$NVM_DIR}/nvm.sh"  # This loads nvm
+[ -s "${NVM_DIR}/bash_completion" ] && \. "${NVM_DIR}/bash_completion"  # This loads nvm bash_completion
 
 #export PATH="$HOME/."
 
@@ -117,7 +119,7 @@ _fzf_comprun() {
 
 # ----- Bat (better cat) -----
 
-export BAT_THEME=tokyonight_night
+export BAT_THEME="Catppuccin Mocha"
 
 # ---- TheFuck -----
 
@@ -140,3 +142,5 @@ setopt SH_WORD_SPLIT
 
 #export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 #eval "$(rbenv init -)"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
