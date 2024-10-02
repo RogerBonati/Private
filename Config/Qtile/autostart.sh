@@ -4,7 +4,9 @@
 # 1. Uncomment to restore last saved wallpaper
 # xargs xwallpaper --stretch < ~/.cache/wall &
 # 2. Uncomment to set a random wallpaper on login
-find "$HOME"/Eigenedat/Bilder -type f | shuf -n 1 | xargs xwallpaper --stretch &
+# find "$HOME"/Eigenedat/Bilder -type f | shuf -n 1 | xargs xwallpaper --stretch &
+pic=$(find "$HOME"/Eigenedat/Bilder -type f | shuf -n 1) && echo $(date) selected wallpaper: $pic >> ~/wallpaper_log.txt && xwallpaper --stretch $pic
+
 # 3. Uncomment to set wallpaper with nitrogen
 # nitrogen --restore &
 
