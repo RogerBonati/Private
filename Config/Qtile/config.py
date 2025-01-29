@@ -43,7 +43,8 @@ import colors
 mod1 = "mod4"  # Sets mod key to SUPER/WINDOWS
 mod = "mod1"  # ALT key
 # mod = "mod3"                # ALT-GR key
-myTerm = "alacritty"  # My terminal of choice
+# myTerm = "alacritty"  # My terminal of choice
+myTerm = "ghostty"  # My terminal of choice
 bwidth = 2
 
 dgrey = "#333333"
@@ -121,7 +122,8 @@ keys = [
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
-    Key([mod], "Return", lazy.spawn("alacritty")),
+    # Key([mod], "Return", lazy.spawn("alacritty")),
+    Key([mod], "Return", lazy.spawn("ghostty")),
     # launch brave browser
     Key([mod], "b", lazy.spawn("brave-browser")),
     # launch chromium
@@ -146,8 +148,8 @@ keys = [
     # launch vlc
     Key([mod], "v", lazy.spawn("vlc")),
     Key([mod], "w", lazy.window.kill()),
-    # launch keepassx
-    Key([mod], "x", lazy.spawn("keepassx")),
+    # launch ikeepassx
+    Key([mod], "x", lazy.spawn("keepassxc")),
     # Switch focus of monitors
     Key([mod], "period", lazy.next_screen(), desc="Move focus to next monitor"),
     Key([mod], "comma", lazy.prev_screen(), desc="Move focus to prev monitor"),
