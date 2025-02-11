@@ -14,10 +14,10 @@ keybind = shift+ctrl+j=new_split:down
 keybind = shift+ctrl+k=new_split:up
 keybind = shift+ctrl+l=new_split:right
 
-keybind = super+ctrl+h=goto_split:left
-keybind = super+ctrl+j=goto_split:bottom
-keybind = super+ctrl+k=goto_split:top
-keybind = super+ctrl+l=goto_split:right
+keybind = super+alt+h=goto_split:left
+keybind = super+alt+j=goto_split:bottom
+keybind = super+alt+k=goto_split:top
+keybind = super+alt+l=goto_split:right
 
 # fonts
 
