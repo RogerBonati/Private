@@ -14,13 +14,20 @@ alias st='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/s
 alias lse="eza --color=always --long --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias ls2="eza --color=always --long --icons=always"
 
-alias cd="z"
+# alias cd="z"
 
 alias fman="compgen -c | fzf | xargs man"
 
 alias bs="fzf --preview='bat --color=always {}'"
-
+alias inv='nvim -c "tab all" $(fzf -m --preview "bat --color always {}")'
 
 cheat() {
   curl https://cheat.sh/$1
 }
+
+alias pbcopy='xsel --input --clipboard'
+alias pbpaste='xsel --output --clipboard'
+
+# yt-dlp
+alias yt="yt-dlp --no-playlist"
+alias screenconfig="xrandr --output eDP-1 --primary --mode 1920x1080 --output DP-2-2 --mode 1920x1200 --above eDP-1"
