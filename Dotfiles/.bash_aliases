@@ -30,4 +30,8 @@ alias pbpaste='xsel --output --clipboard'
 
 # yt-dlp
 alias yt="yt-dlp --no-playlist"
+# screen config 1 extra screen
 alias screenconfig="xrandr --output eDP-1 --primary --mode 1920x1080 --output DP-2-2 --mode 1920x1200 --above eDP-1"
+# clear and ls
+alias l="ls -lahF"
+alias c="clear"
