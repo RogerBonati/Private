@@ -35,3 +35,6 @@ alias screenconfig="xrandr --output eDP-1 --primary --mode 1920x1080 --output DP
 # clear and ls
 alias l="ls -lahF"
 alias c="clear"
+# copy to clipboard in mac style
+alias pbcopy="xclip -sel clip"
+alias pbpaste="xclip -sel clip -o"
