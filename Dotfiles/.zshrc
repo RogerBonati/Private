@@ -28,10 +28,8 @@ autoload -U compinit && compinit
 export PATH=${PATH}
 
 # chatgpt api
-export OPENAI_API_KEY=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
 
 # anthropic api
-export ANTHROPIC_API_KEY=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
 
 # GO
 export GOBIN=~/go/bin
