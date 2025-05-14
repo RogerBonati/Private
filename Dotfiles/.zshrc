@@ -27,10 +27,6 @@ autoload -U compinit && compinit
 
 export PATH=${PATH}
 
-# chatgpt api
-
-# anthropic api
-
 # GO
 export GOBIN=~/go/bin
 export GOROOT=/usr/local/go
