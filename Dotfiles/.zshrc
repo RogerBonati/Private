@@ -4,11 +4,17 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
+set -o vi  
 #source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
+
+# nvim
+# export $NVIM_APPNAME=nvim-python
+
+# use nvim as manpager
+export MANPAGER="nvim +Man!"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -21,8 +27,15 @@ autoload -U compinit && compinit
 
 export PATH=${PATH}
 
+# chatgpt api
+export OPENAI_API_KEY=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
+
+# anthropic api
+export ANTHROPIC_API_KEY=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
+
 # GO
 export GOBIN=~/go/bin
+export GOROOT=/usr/local/go
 #export PATH="$HOME.local.bin:/usr/local/go/bin:$PATH"
 
 
@@ -50,8 +63,7 @@ setopt hist_find_no_dups
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
-# export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/br/.cargo/bin:/home/br/.local/bin:/home/br/go/bin:/home/br/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/br/.dotnet/tools"
-export PATH="${PATH}:${HOME}/.local/bin:${HOME}/go/bin:/usr/local/go/bin"
+export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.dotnet/tools"
 
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -65,6 +77,7 @@ export NVM_DIR="{$HOME}/.nvm"
 # ---- FZF -----
 
 # Set up fzf key bindings and fuzzy completion
+FZF_DEFAULT_OPTS="--layout=reverse --border=bold --border=rounded --margin=3% --color=dark"
 eval "$(fzf --zsh)"
 
 # --- setup fzf theme ---
@@ -75,7 +88,7 @@ purple="#B388FF"
 blue="#06BCE4"
 cyan="#2CF9ED"
 
-export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${purple},fg+:${fg},bg+:${bg_highlight},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
+# export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${purple},fg+:${fg},bg+:${bg_highlight},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
 
 # -- Use fd instead of fzf --
 
@@ -98,7 +111,6 @@ _fzf_compgen_dir() {
 source ~/.local/bin/fzf-git.sh/fzf-git.sh
 
 show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
-
 export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
@@ -140,7 +152,22 @@ fi
 unsetopt RC_QUOTES
 setopt SH_WORD_SPLIT
 
-#export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
-#eval "$(rbenv init -)"
+# export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+# eval "$(rbenv init -)"
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+typeset -U PATH
+
+. "$HOME/.atuin/bin/env"
+
+# eval "$(atuin init zsh)"
+eval "$(atuin init zsh --disable-up-arrow)"
+
+
+#stack visited directories
+# source ~/.local/bin/cdstack.bash
+
+# emulate help
+function help(){
+    bash -c "help $@"
+}
